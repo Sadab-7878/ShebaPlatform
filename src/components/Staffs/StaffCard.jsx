@@ -2,10 +2,8 @@ import React from "react";
 import { HiMiniArrowRightEndOnRectangle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
-
 const StaffCard = ({ staff }) => {
-
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div className="bg-gray-50 border hover:border-sky-800 rounded-md shadow-md p-5">
@@ -30,7 +28,7 @@ const StaffCard = ({ staff }) => {
           {staff.details}
         </p>
 
-        <div className="flex flex-wrap gap-2 my-2 text-xs items-center h-32 lg:h-20">
+        <div className="flex flex-wrap gap-2 my-2 text-xs items-center h-32 lg:h-20 text-gray-600">
           {staff.services.length > 3 ? (
             <>
               {staff.services.slice(0, 3).map((service) => (
@@ -50,9 +48,12 @@ const StaffCard = ({ staff }) => {
           )}
         </div>
 
-        <button onClick={()=> {
-            navigate(`/staff-details/${staff.id}`)
-        }} className="bg-sky-800 hover:bg-sky-900 text-white rounded-full text-sm  mt-2 flex items-center py-2 px-5 gap-1">
+        <button
+          onClick={() => {
+            navigate(`/staff-details/${staff.id}`);
+          }}
+          className="bg-sky-800 hover:bg-sky-900 text-white rounded-full text-sm  mt-2 flex items-center py-2 px-5 gap-1"
+        >
           See Profile <HiMiniArrowRightEndOnRectangle />
         </button>
       </div>
