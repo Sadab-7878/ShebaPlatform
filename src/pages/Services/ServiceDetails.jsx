@@ -1,8 +1,10 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import ServiceCard from "../../components/Services/ServiceCard";
+import StaffMiniCard from "../../components/Staffs/StaffMiniCard";
 
-const Services = () => {
+const ServiceDetails = () => {
+  const { id } = useParams();
   const services = [
     {
       id: 1,
@@ -86,73 +88,84 @@ const Services = () => {
     },
   ];
 
-  const categories = [
+  const staffs = [
     {
       id: 1,
-      name: "Home Services",
+      name: "John Doe",
+      bio: "Experienced technician specializing in home appliance repairs and maintenance.",
+      location: "New York, USA",
+      rate: 4.8,
+      details:
+        "John has over 10 years of experience in repairing home appliances, including ACs, refrigerators, and washing machines.",
+      image: "https://i.ibb.co.com/fdFVMtws/10496279.jpg",
+      services: [
+        "AC Repair Services",
+        "Home Appliance Repair",
+        "Electrician Services",
+        "Plumbing Services",
+      ],
     },
     {
       id: 2,
-      name: "Home Services",
-    },
-    {
-      id: 3,
-      name: "Personal Care",
-    },
-    {
-      id: 4,
-      name: "Home Services",
-    },
-    {
-      id: 5,
-      name: "Home Services",
-    },
-    {
-      id: 6,
-      name: "Automotive",
-    },
-    {
-      id: 7,
-      name: "Home Improvement",
-    },
-    {
-      id: 8,
-      name: "Home Services",
-    },
-    {
-      id: 9,
-      name: "Health & Wellness",
-    },
-    {
-      id: 10,
-      name: "Home Services",
+      name: "Emily Smith",
+      bio: "Professional beauty and wellness expert with a passion for self-care and relaxation.",
+      location: "Los Angeles, USA",
+      rate: 4.9,
+      details:
+        "Emily has been in the beauty and wellness industry for 8 years, offering top-notch spa and personal care services.",
+      image: "https://i.ibb.co.com/XZN6nH4W/11475221.jpg",
+      services: [
+        "Beauty & Wellness",
+        "Fitness & Personal Training",
+        "Cleaning Solution",
+        "Home Painting Services",
+      ],
     },
   ];
+
+  const service = services.find((service) => service.id === parseInt(id));
 
   return (
     <>
       <Navbar />
+
       <div className="container mx-auto p-2">
-        <h1 className="text-3xl mt-5 font-bold">All Services</h1>
+        <h1 className="text-xl lg:text-3xl my-5 lg:my-10 font-bold">
+          {service.name}
+        </h1>
 
-        {categories.map((category) => (
-          <div key={category.id} className="my-20">
-            <div className="w-full">
-              <h2 className="my-5 text-2xl font-bold">{category.name}</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* 1 */}
+          <div className="w-full p-5 order-last lg:order-first">
+            <img
+              src={service.image}
+              alt={service.name}
+              className="max-w-full mx-auto rounded-xl shadow"
+            />
 
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
-                {services
-                  .filter((service) => service.category === category.name)
-                  .map((service) => (
-                    <ServiceCard key={service.id} service={service}/>
-                  ))}
-              </div>
+            <h2 className="font-bold text-xl mt-10 py-2">{service.name}</h2>
+            <p className="text-justify">{service.details}</p>
+          </div>
+
+          {/* 1 */}
+
+          {/* 2 */}
+          <div>
+            <h2 className="font-bold">Service Providers</h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+              {staffs
+                .filter((staff) => staff.services.includes(service.name))
+                .map((staff) => (
+                  <StaffMiniCard key={staff.id} staff={staff} />
+                ))}
             </div>
           </div>
-        ))}
+          {/* 2 */}
+        </div>
       </div>
     </>
   );
 };
 
-export default Services;
+export default ServiceDetails;
